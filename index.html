@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8e9ef">
+<title>Chá de Revelação | Kaylane e Ravi</title>
+<style>
+:root{--pink:#d98ba8;--blue:#8eb6d6;--ink:#665762;--cream:#fffaf8}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:24px 14px;background:linear-gradient(145deg,#f9e9ef,#eaf3fa);font-family:Georgia,"Times New Roman",serif;color:var(--ink);display:flex;align-items:center;justify-content:center}
+.card{position:relative;overflow:hidden;width:min(100%,520px);padding:38px 27px 30px;text-align:center;background:rgba(255,250,248,.96);border:1px solid #fff;border-radius:28px;box-shadow:0 18px 55px #8b718522}
+.card:before,.card:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;filter:blur(2px);opacity:.24;z-index:0}
+.card:before{background:#efb9cc;top:-115px;left:-95px}.card:after{background:#b8d7ec;right:-110px;bottom:-120px}
+.inner{position:relative;z-index:1}
+.kicker{font:12px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#a77b8d}
+h1{font-size:clamp(34px,9vw,49px);font-weight:normal;line-height:1.05;margin:13px 0 8px;color:#9b6e83}
+.names{font-size:23px;margin:8px 0 20px;color:#7c6874}
+.intro{font-size:18px;line-height:1.6;margin:0 auto 22px;max-width:390px}
+.balloons{font-size:34px;letter-spacing:12px;margin:15px 0 22px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.detail{padding:14px 8px;border-radius:16px;background:#f9eef2;font:14px Arial,sans-serif}
+.detail:nth-child(2){background:#edf5fa}
+.detail strong{display:block;font-size:16px;margin-top:5px;color:#765e6d}
+.place{font:15px Arial,sans-serif;margin:15px 0 24px}
+hr{border:0;border-top:1px solid #ead8df;margin:22px 0}
+h2{font-size:25px;font-weight:normal;color:#9b6e83;margin:0 0 8px}
+form{text-align:left;font-family:Arial,sans-serif}
+label{display:block;font-size:13px;margin:13px 0 6px;color:#786975}
+input,select{width:100%;padding:13px 14px;border:1px solid #e6d5dc;border-radius:12px;background:white;color:#514650;font-size:15px;outline:none}
+input:focus,select:focus{border-color:#c88ca5;box-shadow:0 0 0 3px #d98ba822}
+button{width:100%;border:0;border-radius:30px;padding:15px;margin-top:18px;background:linear-gradient(90deg,#d99bb2,#9fc3dd);color:white;font-size:16px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.65;cursor:wait}
+#status{font:14px Arial,sans-serif;line-height:1.5;text-align:center;margin-top:14px;min-height:20px}
+.foot{font:12px Arial,sans-serif;color:#a18d98;margin-top:20px}
+@media(max-width:360px){.card{padding:30px 18px}.intro{font-size:16px}}
+</style>
+</head>
+<body>
+<main class="card">
+ <div class="inner">
+  <div class="kicker">Um momento cheio de amor</div>
+  <div class="balloons" aria-hidden="true">🎀 🩷 🩵</div>
+  <h1>Chá de Revelação</h1>
+  <div class="names">Kaylane e Ravi</div>
+  <p class="intro">Menino ou menina? 💗💙<br>Venha descobrir com a gente essa surpresa tão especial!</p>
+  <div class="details">
+   <div class="detail">📅 Data<strong>22 de novembro de 2026</strong></div>
+   <div class="detail">🕓 Horário<strong>16 horas</strong></div>
+  </div>
+  <div class="place">📍 <strong>Centro Cultural do Cariri</strong><br>Crato – Ceará</div>
+  <hr>
+  <h2>Confirme sua presença</h2>
+  <p style="font:14px Arial,sans-serif;line-height:1.5;margin:0 0 14px">Será uma alegria ter você com a gente nesse momento!</p>
+  <form id="rsvp">
+   <label for="guest">Seu nome</label>
+   <input id="guest" name="nome" autocomplete="name" placeholder="Digite seu nome completo" required>
+   <label for="people">Quantas pessoas irão ao todo, contando com você?</label>
+   <select id="people" name="quantidade" required>
+    <option value="1">1 pessoa</option><option value="2">2 pessoas</option><option value="3">3 pessoas</option><option value="4">4 pessoas</option><option value="5">5 pessoas</option><option value="6">6 pessoas</option>
+   </select>
+   <button id="send" type="submit">Confirmar presença 💗</button>
+  </form>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div class="foot">Com carinho, Kaylane e Ravi</div>
+ </div>
+</main>
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXcy672b76BqpRbayTtQ8kz83-e7vQww4vSqetDlL8ohwoE4yzAJES8cazlM1OrnFK/exec";
+const form = document.getElementById("rsvp");
+const statusBox = document.getElementById("status");
+const send = document.getElementById("send");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (SCRIPT_URL.startsWith("COLE_AQUI")) {
+    statusBox.textContent = "O convite ainda precisa ser conectado à planilha. Peça a configuração do link de confirmação.";
+    return;
+  }
+  const payload = {
+    nome: document.getElementById("guest").value.trim(),
+    quantidade: Number(document.getElementById("people").value),
+    enviadoEm: new Date().toISOString()
+  };
+  send.disabled = true;
+  send.textContent = "Enviando...";
+  statusBox.textContent = "";
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    });
+    statusBox.textContent = "Obrigada! Sua confirmação foi enviada. 💗";
+    form.reset();
+  } catch (error) {
+    statusBox.textContent = "Não foi possível enviar agora. Verifique sua conexão e tente novamente.";
+  } finally {
+    send.disabled = false;
+    send.textContent = "Confirmar presença 💗";
+  }
+});
+</script>
+</body>
+</html>
