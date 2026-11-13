@@ -3,88 +3,325 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f8e9ef">
-<title>Chá de Revelação | Kaylane e Ravi</title>
+<meta name="theme-color" content="#f3ece4">
+<title>Chá Revelação</title>
 <style>
-:root{--pink:#d98ba8;--blue:#8eb6d6;--ink:#665762;--cream:#fffaf8}
+:root{
+  --pink:#d98ba8;
+  --blue:#8eb6d6;
+  --bear:#9b7653;
+  --bear-dark:#765538;
+  --sand:#f3ece4;
+  --ink:#5e4e44;
+  --cream:#fffcf9;
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:24px 14px;background:linear-gradient(145deg,#f9e9ef,#eaf3fa);font-family:Georgia,"Times New Roman",serif;color:var(--ink);display:flex;align-items:center;justify-content:center}
-.card{position:relative;overflow:hidden;width:min(100%,520px);padding:38px 27px 30px;text-align:center;background:rgba(255,250,248,.96);border:1px solid #fff;border-radius:28px;box-shadow:0 18px 55px #8b718522}
-.card:before,.card:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;filter:blur(2px);opacity:.24;z-index:0}
-.card:before{background:#efb9cc;top:-115px;left:-95px}.card:after{background:#b8d7ec;right:-110px;bottom:-120px}
-.inner{position:relative;z-index:1}
-.kicker{font:12px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#a77b8d}
-h1{font-size:clamp(34px,9vw,49px);font-weight:normal;line-height:1.05;margin:13px 0 8px;color:#9b6e83}
-.names{font-size:23px;margin:8px 0 20px;color:#7c6874}
-.intro{font-size:18px;line-height:1.6;margin:0 auto 22px;max-width:390px}
-.balloons{font-size:34px;letter-spacing:12px;margin:15px 0 22px}
-.details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
-.detail{padding:14px 8px;border-radius:16px;background:#f9eef2;font:14px Arial,sans-serif}
-.detail:nth-child(2){background:#edf5fa}
-.detail strong{display:block;font-size:16px;margin-top:5px;color:#765e6d}
-.place{font:15px Arial,sans-serif;margin:15px 0 24px}
-hr{border:0;border-top:1px solid #ead8df;margin:22px 0}
-h2{font-size:25px;font-weight:normal;color:#9b6e83;margin:0 0 8px}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:24px 14px;
+  background:linear-gradient(145deg,#f5ede4,#efe5d8);
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  position:relative;
+  overflow:hidden;
+  width:min(100%,520px);
+  padding:34px 27px 58px;
+  text-align:center;
+  background:rgba(255,252,249,.96);
+  border:1px solid #fff;
+  border-radius:28px;
+  box-shadow:0 18px 55px rgba(118,85,56,.14);
+}
+/* Ursinho menor e posicionado no cantinho livre abaixo do botão */
+.bear-bg{
+  position:absolute;
+  left:4px;
+  bottom:-4px;
+  width:135px;
+  height:auto;
+  opacity:.88;
+  pointer-events:none;
+  z-index:1;
+}
+.clouds-bg{
+  position:absolute;
+  top:14px;
+  right:-10px;
+  width:190px;
+  opacity:.75;
+  pointer-events:none;
+  z-index:0;
+}
+.inner{position:relative;z-index:2}
+.kicker{font:12px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#9b7b63;margin-top:8px}
+h1{font-size:clamp(34px,9vw,48px);font-weight:normal;line-height:1.05;margin:10px 0 18px;color:#8c6548}
+.intro{font-size:17px;line-height:1.6;margin:0 auto 20px;max-width:400px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.detail{padding:14px 8px;border-radius:16px;background:rgba(247,239,231,.88);font:14px Arial,sans-serif;border:1px solid #ede0d4;backdrop-filter:blur(2px)}
+.detail strong{display:block;font-size:16px;margin-top:5px;color:#6e503a}
+.place{font:15px Arial,sans-serif;margin:15px 0 22px}
+hr{border:0;border-top:1px solid #eadccf;margin:20px 0}
+
+/* Barra de progresso */
+.poll-box{
+  background:rgba(250,244,238,.92);
+  border:1px solid #eadccf;
+  border-radius:18px;
+  padding:14px 16px;
+  margin-bottom:20px;
+  font-family:Arial,sans-serif;
+  backdrop-filter:blur(2px);
+}
+.poll-title{font-size:13px;font-weight:bold;color:#7a5c46;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.poll-labels{display:flex;justify-content:space-between;font-size:13px;font-weight:bold;margin-bottom:6px}
+.lbl-girl{color:#c46d8e}
+.lbl-boy{color:#6699c2}
+.progress-track{
+  width:100%;
+  height:14px;
+  background:#e8dfd5;
+  border-radius:99px;
+  overflow:hidden;
+  display:flex;
+}
+.bar-girl{height:100%;background:linear-gradient(90deg,#e4a1ba,#d98ba8);width:50%;transition:width .5s ease}
+.bar-boy{height:100%;background:linear-gradient(90deg,#8eb6d6,#72a1c7);width:50%;transition:width .5s ease}
+.poll-total{font-size:12px;color:#8f7866;margin-top:6px}
+
+h2{font-size:25px;font-weight:normal;color:#8c6548;margin:0 0 8px}
 form{text-align:left;font-family:Arial,sans-serif}
-label{display:block;font-size:13px;margin:13px 0 6px;color:#786975}
-input,select{width:100%;padding:13px 14px;border:1px solid #e6d5dc;border-radius:12px;background:white;color:#514650;font-size:15px;outline:none}
-input:focus,select:focus{border-color:#c88ca5;box-shadow:0 0 0 3px #d98ba822}
-button{width:100%;border:0;border-radius:30px;padding:15px;margin-top:18px;background:linear-gradient(90deg,#d99bb2,#9fc3dd);color:white;font-size:16px;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.65;cursor:wait}
-#status{font:14px Arial,sans-serif;line-height:1.5;text-align:center;margin-top:14px;min-height:20px}
-.foot{font:12px Arial,sans-serif;color:#a18d98;margin-top:20px}
-@media(max-width:360px){.card{padding:30px 18px}.intro{font-size:16px}}
+label{display:block;font-size:13px;margin:13px 0 6px;color:#6e5849;font-weight:bold}
+input,select{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #e0d0c1;
+  border-radius:12px;
+  background:rgba(255,255,255,.88);
+  color:#4d3e34;
+  font-size:15px;
+  outline:none;
+}
+input:focus,select:focus{border-color:#b38b6d;box-shadow:0 0 0 3px rgba(179,139,109,.18);background:#fff}
+
+/* Botões de Palpite */
+.guess-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.guess-btn{
+  margin-top:0;
+  padding:13px 10px;
+  border-radius:14px;
+  border:2px solid #e4d6c8;
+  background:rgba(255,255,255,.92);
+  color:#6e5849;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.guess-btn.girl:hover,.guess-btn.girl.active{
+  background:#fdf0f5;
+  border-color:#d98ba8;
+  color:#b85d80;
+  box-shadow:0 4px 12px rgba(217,139,168,.25);
+}
+.guess-btn.boy:hover,.guess-btn.boy.active{
+  background:#eef6fc;
+  border-color:#8eb6d6;
+  color:#4f83ad;
+  box-shadow:0 4px 12px rgba(142,182,214,.25);
+}
+
+.submit-btn{
+  width:100%;
+  border:0;
+  border-radius:30px;
+  padding:15px;
+  margin-top:20px;
+  background:linear-gradient(90deg,#d99bb2,#9fc3dd);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(159,195,221,.35);
+}
+.submit-btn:disabled{opacity:.65;cursor:wait}
+#status{font:14px Arial,sans-serif;line-height:1.5;text-align:center;margin-top:14px;min-height:20px;font-weight:bold}
+.foot{font:12px Arial,sans-serif;color:#7a604d;margin-top:26px;padding-left:115px;text-align:right}
+@media(max-width:400px){
+  .card{padding:28px 18px 54px}
+  .intro{font-size:16px}
+  .bear-bg{width:115px}
+  .foot{padding-left:105px}
+}
 </style>
 </head>
 <body>
 <main class="card">
+ <!-- Nuvens decorativas -->
+ <svg class="clouds-bg" viewBox="0 0 200 90" fill="none" aria-hidden="true">
+  <path d="M35 65h120a22 22 0 0 0 4-43 32 32 0 0 0-61-10 25 25 0 0 0-43 18A20 20 0 0 0 35 65Z" fill="#efe6dc"/>
+ </svg>
+
+ <!-- Ursinho com balões -->
+ <svg class="bear-bg" viewBox="0 0 260 360" fill="none" aria-hidden="true">
+  <!-- Fios dos balões -->
+  <path d="M95 190 Q70 130 55 95" stroke="#a3876e" stroke-width="2"/>
+  <path d="M95 190 Q95 120 98 75" stroke="#a3876e" stroke-width="2"/>
+  <path d="M95 190 Q125 135 135 100" stroke="#a3876e" stroke-width="2"/>
+  <path d="M95 190 Q55 150 40 135" stroke="#a3876e" stroke-width="2"/>
+  <!-- Balões -->
+  <ellipse cx="52" cy="72" rx="24" ry="30" transform="rotate(-12 52 72)" fill="#d6b394"/>
+  <ellipse cx="98" cy="52" rx="25" ry="31" fill="#e2c5aa"/>
+  <ellipse cx="138" cy="78" rx="23" ry="29" transform="rotate(14 138 78)" fill="#cfa784"/>
+  <ellipse cx="36" cy="116" rx="22" ry="28" transform="rotate(-20 36 116)" fill="#e6ccb4"/>
+  <ellipse cx="86" cy="105" rx="24" ry="30" fill="#d9b798"/>
+  <!-- Orelhas -->
+  <circle cx="92" cy="178" r="14" fill="#7a5438"/>
+  <circle cx="148" cy="176" r="13" fill="#7a5438"/>
+  <!-- Corpo do urso -->
+  <path d="M72 355 C65 295 75 235 102 215 C128 198 158 215 166 255 C174 295 162 345 152 355 Z" fill="#9c7252"/>
+  <!-- Barriguinha clara -->
+  <ellipse cx="136" cy="285" rx="28" ry="44" transform="rotate(-8 136 285)" fill="#ead8c5"/>
+  <!-- Cabeça -->
+  <ellipse cx="122" cy="198" rx="34" ry="30" fill="#9c7252"/>
+  <!-- Focinho -->
+  <ellipse cx="144" cy="204" rx="16" ry="13" fill="#ead8c5"/>
+  <ellipse cx="155" cy="200" rx="5" ry="4" fill="#3d281a"/>
+  <!-- Olho -->
+  <circle cx="133" cy="192" r="3.4" fill="#2e1d12"/>
+  <!-- Braços -->
+  <path d="M92 238 C105 245 125 258 132 272 C136 279 124 286 115 280 C98 270 84 255 92 238 Z" fill="#876042"/>
+  <path d="M158 232 C172 242 182 256 178 266 C174 273 163 268 156 256 Z" fill="#876042"/>
+ </svg>
+
  <div class="inner">
   <div class="kicker">Um momento cheio de amor</div>
-  <div class="balloons" aria-hidden="true">🎀 🩷 🩵</div>
-  <h1>Chá de Revelação</h1>
-  <div class="names">Kaylane e Ravi</div>
-  <p class="intro">Menino ou menina? 💗💙<br>Venha descobrir com a gente essa surpresa tão especial!</p>
+  <h1>Chá Revelação</h1>
+  <p class="intro">Mamãe e papai estão muito felizes com a minha chegada e ansiosos para saber se serei<br><strong>Menino ou Menina. 💗💙</strong></p>
   <div class="details">
    <div class="detail">📅 Data<strong>22 de novembro de 2026</strong></div>
-   <div class="detail">🕓 Horário<strong>16 horas</strong></div>
+   <div class="detail">🕓 Horário<strong>15 horas</strong></div>
   </div>
   <div class="place">📍 <strong>Centro Cultural do Cariri</strong><br>Crato – Ceará</div>
   <hr>
+
+  <!-- Placar / Barra de Progresso -->
+  <div class="poll-box">
+   <div class="poll-title">Placar dos Palpites</div>
+   <div class="poll-labels">
+    <span class="lbl-girl">👧 Menina: <span id="pct-girl">50%</span></span>
+    <span class="lbl-boy">👦 Menino: <span id="pct-boy">50%</span></span>
+   </div>
+   <div class="progress-track">
+    <div id="bar-girl" class="bar-girl"></div>
+    <div id="bar-boy" class="bar-boy"></div>
+   </div>
+   <div id="poll-total" class="poll-total">Carregando palpites...</div>
+  </div>
+
   <h2>Confirme sua presença</h2>
-  <p style="font:14px Arial,sans-serif;line-height:1.5;margin:0 0 14px">Será uma alegria ter você com a gente nesse momento!</p>
+  <p style="font:14px Arial,sans-serif;line-height:1.5;margin:0 0 14px">Preencha seus dados e deixe seu palpite!</p>
+
   <form id="rsvp">
    <label for="guest">Seu nome</label>
    <input id="guest" name="nome" autocomplete="name" placeholder="Digite seu nome completo" required>
+
    <label for="people">Quantas pessoas irão ao todo, contando com você?</label>
    <select id="people" name="quantidade" required>
-    <option value="1">1 pessoa</option><option value="2">2 pessoas</option><option value="3">3 pessoas</option><option value="4">4 pessoas</option><option value="5">5 pessoas</option><option value="6">6 pessoas</option>
+    <option value="1">1 pessoa</option>
+    <option value="2">2 pessoas</option>
+    <option value="3">3 pessoas</option>
+    <option value="4">4 pessoas</option>
+    <option value="5">5 pessoas</option>
+    <option value="6">6 pessoas</option>
    </select>
-   <button id="send" type="submit">Confirmar presença 💗</button>
+
+   <label>Qual é o seu palpite?</label>
+   <input type="hidden" id="palpite" name="palpite" required>
+   <div class="guess-grid">
+    <button type="button" class="guess-btn girl" data-voto="Menina">👧 Menina</button>
+    <button type="button" class="guess-btn boy" data-voto="Menino">👦 Menino</button>
+   </div>
+
+   <button id="send" class="submit-btn" type="submit">Confirmar presença 💗💙</button>
   </form>
+
   <div id="status" role="status" aria-live="polite"></div>
-  <div class="foot">Com carinho, Kaylane e Ravi</div>
+  <div class="foot">Com carinho, Mamãe e Papai</div>
  </div>
 </main>
+
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXcy672b76BqpRbayTtQ8kz83-e7vQww4vSqetDlL8ohwoE4yzAJES8cazlM1OrnFK/exec";
 const form = document.getElementById("rsvp");
 const statusBox = document.getElementById("status");
 const send = document.getElementById("send");
+const palpiteInput = document.getElementById("palpite");
+const guessButtons = document.querySelectorAll(".guess-btn");
+
+let votosMenina = 0;
+let votosMenino = 0;
+
+function atualizarBarra(menina, menino) {
+  votosMenina = menina;
+  votosMenino = menino;
+  const total = menina + menino;
+  const pctGirl = total === 0 ? 50 : Math.round((menina / total) * 100);
+  const pctBoy = total === 0 ? 50 : 100 - pctGirl;
+
+  document.getElementById("pct-girl").textContent = pctGirl + "%";
+  document.getElementById("pct-boy").textContent = pctBoy + "%";
+  document.getElementById("bar-girl").style.width = pctGirl + "%";
+  document.getElementById("bar-boy").style.width = pctBoy + "%";
+  document.getElementById("poll-total").textContent = total === 0
+    ? "Seja o primeiro a dar seu palpite!"
+    : `${total} ${total === 1 ? "palpite registrado" : "palpites registrados"} (${menina} Menina · ${menino} Menino)`;
+}
+
+async function carregarPlacar() {
+  try {
+    const res = await fetch(SCRIPT_URL);
+    const data = await res.json();
+    atualizarBarra(Number(data.menina) || 0, Number(data.menino) || 0);
+  } catch (e) {
+    document.getElementById("poll-total").textContent = "Dê seu palpite abaixo!";
+  }
+}
+
+guessButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    guessButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    palpiteInput.value = btn.dataset.voto;
+    statusBox.textContent = "";
+  });
+});
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  if (SCRIPT_URL.startsWith("COLE_AQUI")) {
-    statusBox.textContent = "O convite ainda precisa ser conectado à planilha. Peça a configuração do link de confirmação.";
+  if (!palpiteInput.value) {
+    statusBox.style.color = "#b85d80";
+    statusBox.textContent = "Por favor, escolha seu palpite (Menina ou Menino) antes de confirmar!";
     return;
   }
+
+  const votoAtual = palpiteInput.value;
   const payload = {
     nome: document.getElementById("guest").value.trim(),
     quantidade: Number(document.getElementById("people").value),
+    palpite: votoAtual,
     enviadoEm: new Date().toISOString()
   };
+
   send.disabled = true;
   send.textContent = "Enviando...";
   statusBox.textContent = "";
+
   try {
     await fetch(SCRIPT_URL, {
       method: "POST",
@@ -92,15 +329,26 @@ form.addEventListener("submit", async (event) => {
       headers: {"Content-Type":"text/plain;charset=utf-8"},
       body: JSON.stringify(payload)
     });
-    statusBox.textContent = "Obrigada! Sua confirmação foi enviada. 💗";
+
+    if (votoAtual === "Menina") votosMenina++;
+    if (votoAtual === "Menino") votosMenino++;
+    atualizarBarra(votosMenina, votosMenino);
+
+    statusBox.style.color = "#5e4e44";
+    statusBox.textContent = `Obrigada! Sua presença e seu palpite (${votoAtual}) foram registrados! 🧸✨`;
     form.reset();
+    palpiteInput.value = "";
+    guessButtons.forEach(b => b.classList.remove("active"));
   } catch (error) {
+    statusBox.style.color = "#b85d80";
     statusBox.textContent = "Não foi possível enviar agora. Verifique sua conexão e tente novamente.";
   } finally {
     send.disabled = false;
-    send.textContent = "Confirmar presença 💗";
+    send.textContent = "Confirmar presença 💗💙";
   }
 });
+
+carregarPlacar();
 </script>
 </body>
 </html>
